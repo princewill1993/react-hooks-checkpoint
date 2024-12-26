@@ -1,8 +1,9 @@
 import React from "react";
 import MovieCard from "./MovieCard";
+import { Link } from "react-router-dom";
 import { movie } from "../utilis/movies";
 
-function MovieList(props) {
+function MovieList() {
   const style = {
     display: "flex",
     // flexWrap: "wrap",
@@ -16,17 +17,19 @@ function MovieList(props) {
       <h1>Our movie list</h1>
 
       <div style={style}>
-        {props.movieToDisplay.map((item) => {
+        {movie.map((item) => {
           return (
-            <MovieCard
-              style={{ width: "500px", height: "500px" }}
-              key={item.id}
-              posterURL={item.posterURL}
-              title={item.title}
-              description={item.description}
-              rating={item.rating}
-              id={item.id}
-            />
+            <Link to={`/movieList/${item.id}`} key={item.id}>
+              <MovieCard
+                style={{ width: "500px", height: "500px" }}
+                posterURL={item.posterURL}
+                title={item.title}
+                description={item.description}
+                rating={item.rating}
+                id={item.id}
+                trailer={item.trailer}
+              />
+            </Link>
           );
         })}
       </div>
@@ -35,16 +38,3 @@ function MovieList(props) {
 }
 
 export default MovieList;
-
-{
-  /* <MovieCard key={item.id}>
-<img
-  src={item.posterURL}
-  alt={item.posterURL}
-  style={{ width: "500px", height: "500px" }}
-/>
-<h3>title:{item.title}</h3>
-<p>description:{item.description}</p>
-<p> rating:{item.rating}</p>
-/> */
-}

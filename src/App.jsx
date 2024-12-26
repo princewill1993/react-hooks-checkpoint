@@ -5,6 +5,8 @@ import MovieList from "./components/MovieList";
 import { movie } from "./utilis/movies";
 import AddMovie from "./components/AddMovie";
 import { Select } from "antd";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DescriptionPage from "./components/DescriptionPage";
 
 function App() {
   const [ourMovies, setOurMovies] = useState(movie);
@@ -28,7 +30,7 @@ function App() {
     ourMovies = localStorage.getItem("allMovies")
       ? JSON.parse(localStorage.getItem("allMovies"))
       : [];
-    setOurMovies();
+    setOurMovies(getMoviesFromLocalStorage());
   };
 
   // To handle filtering of movies
@@ -139,8 +141,15 @@ function App() {
         ]}
       />
       <AddMovie handleMoviesToAdd={handleMoviesToAdd} />
-      <h1></h1>
-      <MovieList movieToDisplay={ourMovies} />
+
+      {/* <MovieList movieToDisplay={ourMovies} /> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MovieList />} />
+
+          <Route path="/MovieList/:id" element={<DescriptionPage />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
